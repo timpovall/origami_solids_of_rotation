@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as pl
 
 #constants
-m = 16 #number of gores
+m = 6 #number of gores
 N = 50 #number of points in each line
 
 def unit_circle(theta):
@@ -37,6 +37,18 @@ def surface_profile():
     x = 1.5*np.sin(theta)
     return np.flip(x), np.flip(z)
 
+def purple_and_black_vase():
+    """Exhibited at PCOC 2019"""
+    #(z+1)^2 / 1 + (x)^2 / (3^2)  =  1
+    NN = int(N/2)
+    z = np.linspace(0,1.9,NN)
+    x = np.sqrt((1-np.power(z-1,2))*4.)
+    scaleX = .5
+    scaleZ = .2
+    zz = np.linspace(max(z),max(z)+scaleZ,NN)
+    xx = np.linspace(x[NN-1],x[NN-1]+scaleX,NN)
+    return np.concatenate((x,xx)), np.concatenate((z,zz))
+
 def distance(p1,p2):
     return np.sqrt((p1[0]-p2[0])**2. +
                    (p1[1]-p2[1])**2.)
@@ -49,7 +61,7 @@ def plot(x_in,y_in,linetype):
         y.append(y_in[i])
     pl.plot(x,y,linetype)
 
-x, z = surface_profile()
+x, z = purple_and_black_vase()
 r=[]
 for i in range(N):
     if i == 0:
